@@ -1,4 +1,4 @@
-module github.com/andygrunwald/go-jira
+module github.com/ManoManoTech/go-jira-fix-api
 
 go 1.15
 
