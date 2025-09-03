@@ -13,10 +13,12 @@ import (
 func GetAllIssues(client *jira.Client, searchString string) ([]jira.Issue, error) {
 	last := 0
 	var issues []jira.Issue
+	fieldsForSearch := []string{"*all"}
 	for {
 		opt := &jira.SearchOptions{
 			MaxResults: 1000, // Max results can go up to 1000
 			StartAt:    last,
+			Fields:     fieldsForSearch,
 		}
 
 		chunk, resp, err := client.Issue.Search(searchString, opt)
