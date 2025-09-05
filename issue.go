@@ -525,7 +525,7 @@ type SearchOptions struct {
 	Fields []string
 	// ValidateQuery: The validateQuery param offers control over whether to validate and how strictly to treat the validation. Default: strict.
 	ValidateQuery string `url:"validateQuery,omitempty"`
-	//
+	// NextPageToken: Token for being able to access to paginated results
 	NextPageToken string `url:"nextPageToken,omitempty"`
 }
 
