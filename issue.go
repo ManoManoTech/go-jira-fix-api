@@ -525,6 +525,8 @@ type SearchOptions struct {
 	Fields []string
 	// ValidateQuery: The validateQuery param offers control over whether to validate and how strictly to treat the validation. Default: strict.
 	ValidateQuery string `url:"validateQuery,omitempty"`
+	//
+	NextPageToken string `url:"nextPageToken,omitempty"`
 }
 
 // searchResult is only a small wrapper around the Search (with JQL) method
