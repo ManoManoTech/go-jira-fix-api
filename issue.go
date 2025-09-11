@@ -99,6 +99,28 @@ type Epic struct {
 	Done    bool   `json:"done" structs:"done"`
 }
 
+// Description represents the description of an issue
+type Description struct {
+	Type     string     `json:"type" structs:"type"`
+	Version  int        `json:"version" structs:"version"`
+	Contents []Contents `json:"content" structs:"content"`
+	Name     string     `json:"name" structs:"name"`
+	Summary  string     `json:"summary" structs:"summary"`
+	Done     bool       `json:"done" structs:"done"`
+}
+
+// Contents represents the contents of a description
+type Contents struct {
+	Type    string    `json:"type" structs:"type"`
+	Content []Content `json:"content" structs:"content"`
+}
+
+// Content represents a single content
+type Content struct {
+	Type string `json:"type" structs:"type"`
+	Text string `json:"text" structs:"text"`
+}
+
 // IssueFields represents single fields of a Jira issue.
 // Every Jira issue has several fields attached.
 type IssueFields struct {
@@ -106,31 +128,31 @@ type IssueFields struct {
 	//      * "workratio": -1,
 	//      * "lastViewed": null,
 	//      * "environment": null,
-	Expand                        string            `json:"expand,omitempty" structs:"expand,omitempty"`
-	Type                          IssueType         `json:"issuetype,omitempty" structs:"issuetype,omitempty"`
-	Project                       Project           `json:"project,omitempty" structs:"project,omitempty"`
-	Environment                   string            `json:"environment,omitempty" structs:"environment,omitempty"`
-	Resolution                    *Resolution       `json:"resolution,omitempty" structs:"resolution,omitempty"`
-	Priority                      *Priority         `json:"priority,omitempty" structs:"priority,omitempty"`
-	Resolutiondate                Time              `json:"resolutiondate,omitempty" structs:"resolutiondate,omitempty"`
-	Created                       Time              `json:"created,omitempty" structs:"created,omitempty"`
-	Duedate                       Date              `json:"duedate,omitempty" structs:"duedate,omitempty"`
-	Watches                       *Watches          `json:"watches,omitempty" structs:"watches,omitempty"`
-	Assignee                      *User             `json:"assignee,omitempty" structs:"assignee,omitempty"`
-	Updated                       Time              `json:"updated,omitempty" structs:"updated,omitempty"`
-	Description                   string            `json:"description,omitempty" structs:"description,omitempty"`
-	Summary                       string            `json:"summary,omitempty" structs:"summary,omitempty"`
-	Creator                       *User             `json:"Creator,omitempty" structs:"Creator,omitempty"`
-	Reporter                      *User             `json:"reporter,omitempty" structs:"reporter,omitempty"`
-	Components                    []*Component      `json:"components,omitempty" structs:"components,omitempty"`
-	Status                        *Status           `json:"status,omitempty" structs:"status,omitempty"`
-	Progress                      *Progress         `json:"progress,omitempty" structs:"progress,omitempty"`
-	AggregateProgress             *Progress         `json:"aggregateprogress,omitempty" structs:"aggregateprogress,omitempty"`
-	TimeTracking                  *TimeTracking     `json:"timetracking,omitempty" structs:"timetracking,omitempty"`
-	TimeSpent                     int               `json:"timespent,omitempty" structs:"timespent,omitempty"`
-	TimeEstimate                  int               `json:"timeestimate,omitempty" structs:"timeestimate,omitempty"`
-	TimeOriginalEstimate          int               `json:"timeoriginalestimate,omitempty" structs:"timeoriginalestimate,omitempty"`
-	Worklog                       *Worklog          `json:"worklog,omitempty" structs:"worklog,omitempty"`
+	Expand  string    `json:"expand,omitempty" structs:"expand,omitempty"`
+	Type    IssueType `json:"issuetype,omitempty" structs:"issuetype,omitempty"`
+	Project Project   `json:"project,omitempty" structs:"project,omitempty"`
+	//Environment                   string            `json:"environment,omitempty" structs:"environment,omitempty"`
+	Resolution           *Resolution   `json:"resolution,omitempty" structs:"resolution,omitempty"`
+	Priority             *Priority     `json:"priority,omitempty" structs:"priority,omitempty"`
+	Resolutiondate       Time          `json:"resolutiondate,omitempty" structs:"resolutiondate,omitempty"`
+	Created              Time          `json:"created,omitempty" structs:"created,omitempty"`
+	Duedate              Date          `json:"duedate,omitempty" structs:"duedate,omitempty"`
+	Watches              *Watches      `json:"watches,omitempty" structs:"watches,omitempty"`
+	Assignee             *User         `json:"assignee,omitempty" structs:"assignee,omitempty"`
+	Updated              Time          `json:"updated,omitempty" structs:"updated,omitempty"`
+	Description          *Description  `json:"description,omitempty" structs:"description,omitempty"`
+	Summary              string        `json:"summary,omitempty" structs:"summary,omitempty"`
+	Creator              *User         `json:"Creator,omitempty" structs:"Creator,omitempty"`
+	Reporter             *User         `json:"reporter,omitempty" structs:"reporter,omitempty"`
+	Components           []*Component  `json:"components,omitempty" structs:"components,omitempty"`
+	Status               *Status       `json:"status,omitempty" structs:"status,omitempty"`
+	Progress             *Progress     `json:"progress,omitempty" structs:"progress,omitempty"`
+	AggregateProgress    *Progress     `json:"aggregateprogress,omitempty" structs:"aggregateprogress,omitempty"`
+	TimeTracking         *TimeTracking `json:"timetracking,omitempty" structs:"timetracking,omitempty"`
+	TimeSpent            int           `json:"timespent,omitempty" structs:"timespent,omitempty"`
+	TimeEstimate         int           `json:"timeestimate,omitempty" structs:"timeestimate,omitempty"`
+	TimeOriginalEstimate int           `json:"timeoriginalestimate,omitempty" structs:"timeoriginalestimate,omitempty"`
+	//Worklog                       *Worklog          `json:"worklog,omitempty" structs:"worklog,omitempty"`
 	IssueLinks                    []*IssueLink      `json:"issuelinks,omitempty" structs:"issuelinks,omitempty"`
 	Comments                      *Comments         `json:"comment,omitempty" structs:"comment,omitempty"`
 	FixVersions                   []*FixVersion     `json:"fixVersions,omitempty" structs:"fixVersions,omitempty"`
@@ -472,13 +494,20 @@ type Comments struct {
 	Comments []*Comment `json:"comments,omitempty" structs:"comments,omitempty"`
 }
 
+// Body represents a list of Comment.
+type Body struct {
+	Type     string    `json:"tyoe,omitempty" structs:"type,omitempty"`
+	Version  int       `json:"version,omitempty" structs:"version,omitempty"`
+	Contents []Content `json:"content,omitempty" structs:"cont∫ent,omitempty"`
+}
+
 // Comment represents a comment by a person to an issue in Jira.
 type Comment struct {
 	ID           string            `json:"id,omitempty" structs:"id,omitempty"`
 	Self         string            `json:"self,omitempty" structs:"self,omitempty"`
 	Name         string            `json:"name,omitempty" structs:"name,omitempty"`
 	Author       User              `json:"author,omitempty" structs:"author,omitempty"`
-	Body         string            `json:"body,omitempty" structs:"body,omitempty"`
+	Body         Body              `json:"body,omitempty" structs:"body,omitempty"`
 	UpdateAuthor User              `json:"updateAuthor,omitempty" structs:"updateAuthor,omitempty"`
 	Updated      string            `json:"updated,omitempty" structs:"updated,omitempty"`
 	Created      string            `json:"created,omitempty" structs:"created,omitempty"`
@@ -532,10 +561,11 @@ type SearchOptions struct {
 // searchResult is only a small wrapper around the Search (with JQL) method
 // to be able to parse the results
 type searchResult struct {
-	Issues     []Issue `json:"issues" structs:"issues"`
-	StartAt    int     `json:"startAt" structs:"startAt"`
-	MaxResults int     `json:"maxResults" structs:"maxResults"`
-	Total      int     `json:"total" structs:"total"`
+	Issues        []Issue `json:"issues" structs:"issues"`
+	StartAt       int     `json:"startAt" structs:"startAt"`
+	MaxResults    int     `json:"maxResults" structs:"maxResults"`
+	Total         int     `json:"total" structs:"total"`
+	NextPageToken string  `json:"nextPageToken" structs:"nextPageToken"`
 }
 
 // GetQueryOptions specifies the optional parameters for the Get Issue methods
@@ -948,7 +978,7 @@ func (s *IssueService) AddComment(issueID string, comment *Comment) (*Comment, *
 // Jira API docs: https://docs.atlassian.com/jira/REST/cloud/#api/2/issue/{issueIdOrKey}/comment-updateComment
 func (s *IssueService) UpdateCommentWithContext(ctx context.Context, issueID string, comment *Comment) (*Comment, *Response, error) {
 	reqBody := struct {
-		Body string `json:"body"`
+		Body Body `json:"body"`
 	}{
 		Body: comment.Body,
 	}
@@ -1114,10 +1144,12 @@ func (s *IssueService) SearchWithContext(ctx context.Context, jql string, option
 		if options.ValidateQuery != "" {
 			uv.Add("validateQuery", options.ValidateQuery)
 		}
+		if options.NextPageToken != "" {
+			uv.Add("nextPageToken", options.NextPageToken)
+		}
 	}
 
 	u.RawQuery = uv.Encode()
-
 	req, err := s.client.NewRequestWithContext(ctx, "GET", u.String(), nil)
 	if err != nil {
 		return []Issue{}, nil, err
@@ -1142,13 +1174,13 @@ func (s *IssueService) Search(jql string, options *SearchOptions) ([]Issue, *Res
 func (s *IssueService) SearchPagesWithContext(ctx context.Context, jql string, options *SearchOptions, f func(Issue) error) error {
 	if options == nil {
 		options = &SearchOptions{
-			StartAt:    0,
-			MaxResults: 50,
+			StartAt: 0,
+			//MaxResults: 50,
 		}
 	}
 
 	if options.MaxResults == 0 {
-		options.MaxResults = 50
+		//options.MaxResults = 50
 	}
 
 	issues, resp, err := s.SearchWithContext(ctx, jql, options)
@@ -1168,11 +1200,13 @@ func (s *IssueService) SearchPagesWithContext(ctx context.Context, jql string, o
 			}
 		}
 
-		if resp.StartAt+resp.MaxResults >= resp.Total {
+		if resp.NextPageToken == "" {
 			return nil
 		}
 
-		options.StartAt += resp.MaxResults
+		options.NextPageToken = resp.NextPageToken
+
+		//options.StartAt += resp.MaxResults
 		issues, resp, err = s.SearchWithContext(ctx, jql, options)
 		if err != nil {
 			return err

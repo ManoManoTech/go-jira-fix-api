@@ -16,10 +16,11 @@ type GroupService struct {
 // groupMembersResult is only a small wrapper around the Group* methods
 // to be able to parse the results
 type groupMembersResult struct {
-	StartAt    int           `json:"startAt"`
-	MaxResults int           `json:"maxResults"`
-	Total      int           `json:"total"`
-	Members    []GroupMember `json:"values"`
+	StartAt       int           `json:"startAt"`
+	MaxResults    int           `json:"maxResults"`
+	Total         int           `json:"total"`
+	Members       []GroupMember `json:"values"`
+	NextPageToken string        `json:"nextPageToken"`
 }
 
 // Group represents a Jira group
