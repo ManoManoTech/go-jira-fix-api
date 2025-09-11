@@ -324,9 +324,10 @@ func (c *Client) GetBaseURL() url.URL {
 type Response struct {
 	*http.Response
 
-	StartAt    int
-	MaxResults int
-	Total      int
+	StartAt       int
+	MaxResults    int
+	Total         int
+	NextPageToken string
 }
 
 func newResponse(r *http.Response, v interface{}) *Response {
@@ -343,10 +344,12 @@ func (r *Response) populatePageValues(v interface{}) {
 		r.StartAt = value.StartAt
 		r.MaxResults = value.MaxResults
 		r.Total = value.Total
+		r.NextPageToken = value.NextPageToken
 	case *groupMembersResult:
 		r.StartAt = value.StartAt
 		r.MaxResults = value.MaxResults
 		r.Total = value.Total
+		r.NextPageToken = value.NextPageToken
 	}
 }
 
@@ -561,8 +564,9 @@ func (t *CookieAuthTransport) transport() http.RoundTripper {
 //
 // Jira docs: https://developer.atlassian.com/cloud/jira/platform/understanding-jwt
 // Examples in other languages:
-//    https://bitbucket.org/atlassian/atlassian-jwt-ruby/src/d44a8e7a4649e4f23edaa784402655fda7c816ea/lib/atlassian/jwt.rb
-//    https://bitbucket.org/atlassian/atlassian-jwt-py/src/master/atlassian_jwt/url_utils.py
+//
+//	https://bitbucket.org/atlassian/atlassian-jwt-ruby/src/d44a8e7a4649e4f23edaa784402655fda7c816ea/lib/atlassian/jwt.rb
+//	https://bitbucket.org/atlassian/atlassian-jwt-py/src/master/atlassian_jwt/url_utils.py
 type JWTAuthTransport struct {
 	Secret []byte
 	Issuer string
