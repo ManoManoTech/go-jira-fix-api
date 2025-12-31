@@ -9,6 +9,6 @@ require (
 	github.com/google/go-querystring v1.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/trivago/tgo v1.0.7
-	golang.org/x/sys v0.0.0-20220330033206-e17cdc41300f // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d
 )
